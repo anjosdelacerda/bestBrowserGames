@@ -1,8 +1,14 @@
 import {UserTypes} from "../../types/user.types"
 import { FormEvent } from "react";
 import { findUser } from "../../utils/findUser.utils";
+import Form from "../../components/Form";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+
+  const navigate = useNavigate()
 
  const registerUser = (user: UserTypes) => {
   const listaAtual = localStorage.getItem('listaUsuarios')
@@ -68,6 +74,8 @@ const Register = () => {
       alert(emailAlreadyExists)
     }else{
       registerUser(newUser)
+      alert("usuário cadastrado com sucesso")
+      navigate("/login")
     //um novo obj do type UserTypes é cadastrado com sucesso no localStorage
     }
   }
@@ -75,15 +83,15 @@ const Register = () => {
   return (
     <div className="register">
         <h2 className="register__title">Novo Usuário</h2>
-    <form className="register__form" onSubmit={submitHandler}>
-      <input className="register__form__input" type="text" placeholder="nome" name="nome" id="nome" required/>
-      <input className="register__form__input" type="email" placeholder="email" name="email" id="email" required/>
-      <input className="register__form__input" type="password" placeholder="senha" name="senha" id="senha" required/>
-      <input className="register__form__input" type="date" placeholder="data de nascimento" name="dataNascimento" id="dataNascimento" required/>
-      <input className="register__form__input" type="text" placeholder="estado" name="estado" id="estado" required/>
-      <input className="register__form__input" type="text" placeholder="país" name="pais" id="pais" required/>
-      <button className="register__form__button" type="submit">CADASTRAR</button>
-    </form>
+        <Form className="register_form" onSubmit={submitHandler}>
+          <Input className="register__form__input" type="text" placeholder="nome" name="nome" required />
+          <Input className="register__form__input" type="email" placeholder="email" name="email" required />
+          <Input className="register__form__input" type="password" placeholder="senha" name="senha" required />
+          <Input className="register__form__input" type="date" placeholder="data de nascimento" name="dataNascimento" required />
+          <Input className="register__form__input" type="text" placeholder="estado" name="estado" required />
+          <Input className="register__form__input" type="text" placeholder="país" name="pais" required />
+          <Button className="register__form__button" type="submit">CADASTRAR</Button>
+        </Form>
     </div>
   );
 };

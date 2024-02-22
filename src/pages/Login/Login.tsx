@@ -2,8 +2,16 @@ import { LoginType } from "../../types/login.types";
 import { FormEvent } from "react";
 import { findUserLogin } from "../../utils/findUserLogin.utils";
 import { comparePasswords } from "../../utils/comparePasswords.utils";
+import { useNavigate } from "react-router-dom";
+import Form from "../../components/Form";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 const Login = () => {
+
+  const navigate = useNavigate()
+
+  //aloco a função de navegar entre páginas do react-router-dom para dentro da variável navigate
 
   const submitHandler = (e: FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
@@ -29,9 +37,13 @@ const Login = () => {
     const correctPassword = comparePasswords(findUser, loginUser)
 
     if(correctPassword){
-      alert('Login efetuado com sucesso')
+      alert("Login efetuado com sucesso")
+      localStorage.setItem('loggedUser', JSON.stringify(findUser))
+      //aloco o usuário logado no localstorage usando a chave loggedUser o valor findUser convertido para JSON
+      navigate("/games")
+      //o navigate irá procurar uma rota /games no routes e irá nos mandar para a url setada
     }else {
-      alert('email ou senha incorretos')
+      alert("email ou senha incorretos")
     }
    }
   }
@@ -39,11 +51,11 @@ const Login = () => {
   return (
     <div className="login">
       <h2 className="login_title">Login</h2>
-      <form className="login__form" onSubmit={submitHandler}>
-        <input className="login__form__input" type="text" placeholder="email" name="email" id="login-nome" />
-        <input type="password" placeholder="senha" name="senha" id="login-senha" />
-        <button className="login__form__button">LOGIN</button>
-      </form>
+      <Form className="login_form" onSubmit={submitHandler}>
+        <Input className="login_form_input" name="email" type="email" placeholder="email" />
+        <Input className="login_form_input" name="senha" type="password" placeholder="senha" />
+        <Button className="login__form__button" type={"submit"}>LOGIN</Button>
+      </Form>
     </div>
   );
 };
