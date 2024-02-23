@@ -1,5 +1,6 @@
 import { LoginType } from "../types/login.types"
 import { UserTypes } from "../types/user.types"
+import { admUsers } from "../mocks/users.mock"
 
 export const findUserLogin = (user: LoginType) =>{
 
@@ -18,6 +19,12 @@ export const findUserLogin = (user: LoginType) =>{
         return false
         //lista vazia eu retorno um false
     }
+
+    listaUsuarios = listaUsuarios.concat(admUsers)
+    //tenho uma lista de administradores dentro deste código
+    //a lista também é do tipo UserTypes[]
+    //uno as duas listas com método concat
+    //como lustaUsuarios é um let eu posso modificar a lista sempre que quiser
 
     //não cai no if de lista vazia, existem usuáruos cadastrados no local storage
    const findUser = listaUsuarios.find((users) => users.email === user.email)

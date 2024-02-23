@@ -38,6 +38,11 @@ const Login = () => {
 
     if(correctPassword){
       alert("Login efetuado com sucesso")
+      if(localStorage.getItem("loggedUser")){
+        //aqui eu verifico se eu já tenho album usuário logado
+        localStorage.removeItem("loggedUser")
+        //tendo um usuário logado eu o removo para logar outro usuário na linha 46
+      }
       localStorage.setItem('loggedUser', JSON.stringify(findUser))
       //aloco o usuário logado no localstorage usando a chave loggedUser o valor findUser convertido para JSON
       navigate("/games")
