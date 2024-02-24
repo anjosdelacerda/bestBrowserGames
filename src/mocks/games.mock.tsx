@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid";
 //escolhi a ferramenta v4 da biblioteca para criar meus ids
 //apelidei a ferramenta v4 de uuid
 
-export const games: GameType[] = [
+export const gameListMock: GameType[] = [
     {
         id: uuid(),
         nome: "Smash Karts",

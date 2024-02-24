@@ -1,5 +1,6 @@
 import MenuAdmIsLogged from "../../components/MenuAdsIsLogged"
 import MenuIsLogged from "../../components/MenuIsLogged"
+import GameList from "../../components/GameList"
 
 const Games = () => {
 
@@ -24,6 +25,7 @@ const Games = () => {
             //se não for eu renderizo outro
         }
         <h2 className="games__title">Avalie os seus games favoritos</h2>
+        <GameList />
     </div>
     
     )
