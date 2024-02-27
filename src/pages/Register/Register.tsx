@@ -59,11 +59,13 @@ const Register = () => {
       dataNascimento: new Date(values.dataNascimento),
       estado: values.estado,
       pais: values.pais,
+      isAdm: false
     }
     //o objeto values criado a partir de formData não é compreendido como um UserTypes
     //como todos os valores das keys são string eu posso passar o valor de cada propriedade pro meu obj newUser
     //como o dataNascimento de values é entendido como uma string eu posso criar uma nova data a partir da data de tipo string que tenho no values
-
+    //por padrão todos os usuários criados pelo "site" não serão administradores 
+    
     const emailAlreadyExists = findUser(newUser)
 
     //findUser verifica se o email passado no cadastro já existe na lista

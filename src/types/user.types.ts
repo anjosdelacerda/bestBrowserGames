@@ -5,4 +5,5 @@ export type UserTypes = {
     dataNascimento: Date;
     estado: string; 
     pais: string;
+    isAdm: boolean;
 }
