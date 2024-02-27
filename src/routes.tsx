@@ -3,6 +3,7 @@ import Home from "./pages/Home/Home"
 import Games from "./pages/Games/Games"
 import Register from "./pages/Register/Register"
 import Login from "./pages/Login/Login"
+import Manage from "./pages/Manage/Manage"
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     {
         path: "/games",
         element: <Games />
+    },
+    {
+        path: "/manage",
+        element: <Manage />
     }
 
 ])

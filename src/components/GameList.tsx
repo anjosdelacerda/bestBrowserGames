@@ -1,27 +1,28 @@
-import { gameListMock } from "../mocks/games.mock";
+import React from "react";
 import Card from "./Card";
+import { GameType } from "../types/game.types";
 
-const GameList = () => {
+type GameListProps = React.ComponentProps<"ul"> & {
+    list: GameType[]
+}
 
-    const storageList = localStorage.getItem("gameList")
-    //tento pegar uma objeto JSON do meu localStorage chamado gameList
-    let gameList = [...gameListMock]
-    //estou pegando a minha lista de jogos mockados
+//crio um component de props para a lista
+//eu espero receber a lista do useState da page de Games em list
 
-    if(storageList){
-        //caso exista algo no meu localStorage chamado gameList eu caio nesse if
-        gameList = gameList.concat(JSON.parse(storageList))
-        //falo que minha gameList aqora é meu mock + a lista JSON convertida para javascript
-    }
+const GameList = ({list, ...props}: GameListProps) => {
+
 
     return (
-        <ul className="gameList">
-            {gameList.map((game) => (
+        //tudo que eu espero receber em uma lista esta em props
+        //no list terei a lista que deverá ser renderizada.
+        <ul {...props}>
+            {list.map((game) => (
                 <li key={game.id}>
                     <Card
                         key={game.id}
                         nome={game.nome}
                         urlImage={game.urlImage}
+                        className="cardList__card"
                     />
                 </li>
             ))}

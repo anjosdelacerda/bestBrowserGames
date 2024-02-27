@@ -57,11 +57,10 @@ const FormRegisterGame = () => {
 
         if(gameAlreadyExists){
             alert(`O jogo ${newGame.nome} já esta cadastrado no sistema`)
-        }else{
+        }else if(categoryIsAlreadyExists && !gameAlreadyExists){
             registerGame(newGame)
             alert(`O jogo ${newGame.nome} foi cadastrado com sucesso`)
         }
-
     }
 
   return (
