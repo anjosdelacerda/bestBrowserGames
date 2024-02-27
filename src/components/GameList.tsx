@@ -4,13 +4,15 @@ import Card from "./Card";
 const GameList = () => {
 
     const storageList = localStorage.getItem("gameList")
+    //tento pegar uma objeto JSON do meu localStorage chamado gameList
     let gameList = [...gameListMock]
+    //estou pegando a minha lista de jogos mockados
 
     if(storageList){
+        //caso exista algo no meu localStorage chamado gameList eu caio nesse if
         gameList = gameList.concat(JSON.parse(storageList))
+        //falo que minha gameList aqora é meu mock + a lista JSON convertida para javascript
     }
-
-    console.log(gameList)
 
     return (
         <ul className="gameList">
