@@ -4,6 +4,8 @@ import GameList from "../../components/GameList"
 import { gameListMock } from "../../mocks/games.mock"
 import { useState } from "react"
 import { GameType } from "../../types/game.types"
+import Input from "../../components/Input"
+import { ChangeEvent } from "react"
 
 const Games = () => {
 
@@ -22,6 +24,8 @@ const Games = () => {
 
     const [list, setList] = useState<GameType[]>([])
     //lista a ser renderizada na page de games
+    const [search, setSearch] = useState<string>("")
+    //aqui armazenarei o valor do meu input de busca a cada mudança
 
     const initializedList = () =>{
         //essa função tem como objetivo pegar a lista mockada e passar pro useState
@@ -65,6 +69,41 @@ const Games = () => {
     //na handleStorage colocamos uma condificonal apenas para o objeto gameList
     //quando um jogo for adicionado ao localStorage uma nova lista será setada no useState
 
+    const handleSearch = (e: ChangeEvent<HTMLInputElement>) =>{ 
+        //importei a typagem ChangeEvent do react
+        //essa typagem é adequada para escutar mudanças de valor constantes e instantâneas
+        //será usado para escutar todas as mudanças de um value de um input
+        //como o input não está em um form usamos o HTMLInputElement como typagem
+        //eu sempre consigo escutar esse evento porque o value do meu input é igual ao search do useState
+        //esse search sempre será mudado com setSearch por causa dessa função que escuta mudanças no value do input
+        e.preventDefault()
+
+        setSearch(e.target.value)
+        //aqui eu sempre pego o valor que esta no input de pesquisa e passo para o search do useState de search
+
+        const searchList = list.filter((game) => 
+            game.nome.toLowerCase().includes(search.toLowerCase())
+            // aqui eu pego e faço um filter em list
+            // deixo todas as letras minúsculas para evitar divergências
+            // e filtro pelo resultado do meu método includes 
+            // no includes verifico se no nome do meu game inclui a sequência de letras que esta no search no momento
+            || game.categoria.toLowerCase().includes(search.toLowerCase())
+            //faço o mesmo mas agora verificando também se esses caracteres aparecem em categoria
+            //e isso retorna uma lista com todos os elementos que passam no filtro
+        )
+
+        if(e.target.value === ""){
+            const localList = JSON.parse(localStorage.getItem("gameList") || "")
+            setList(localList)
+        }else if(e.target.value !== "" && searchList.length === 0){
+            setList([])
+        }else{
+            setList(searchList)
+            //caso exista algo no input quer dizer que searchList ou tem itens que atendem o que eu espero ou não tem nada
+            //e eu renderizo a minha searchList passando ela para meu list
+        }
+    }
+
     return (
     <div className="games">
         {
@@ -72,6 +111,10 @@ const Games = () => {
             //se o usuario for um administrador eu renderizo um componente
             //se não for eu renderizo outro
         }
+        <div className="games__search">
+            <Input className="games__search__input" value={search} onChange={handleSearch} type="text" name="search" placeholder="pesquisar jogo" />
+
+        </div>
         <h2 className="games__title">Avalie os seus games favoritos</h2>
         <GameList list={list} className="cardList" />
     </div>
